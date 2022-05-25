@@ -17,6 +17,9 @@ public class TurmaService {
 	@Autowired
 	TurmaRepository turmaRepository;
 	
+	@Autowired
+	InstrutorService instrutorService;
+	
 	public List<Turma> findAllTurma(){
 		return turmaRepository.findAll();
 	}
@@ -37,8 +40,9 @@ public class TurmaService {
 	
 	public TurmaDTO saveTurmaDTO(TurmaDTO TurmaDTO) {
 		Turma turma = convertDtoToEntity(TurmaDTO);
+		
 		Turma turmaNovo =turmaRepository.save(turma);
-		 
+		
 		 return convertEntitytoDto (turmaNovo);
 	}
 	
@@ -69,6 +73,8 @@ public class TurmaService {
 		turmaDTO.setHorarioTurma(turma.getHorarioTurma());
 		turmaDTO.setTurmaId(turma.getTurmaId());
 		
+		Instrutor instrutor = instrutorService.findInstrutorById(turmaDTO.getInstrutorDTO().getInstrutorId());
+		
 		return turmaDTO;
 	}
 	
@@ -79,6 +85,8 @@ public class TurmaService {
 		turma.setDuracaoTurma(turmaDTO.getDuracaoTurma());
 		turma.setHorarioTurma(turmaDTO.getHorarioTurma());
 		turma.setTurmaId(turmaDTO.getTurmaId());
+		
+		
 		
 		Turma turmaNovo = turmaRepository.save(turma);
 		

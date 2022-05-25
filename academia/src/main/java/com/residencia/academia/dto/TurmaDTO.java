@@ -9,6 +9,7 @@ public class TurmaDTO {
 	private Integer duracaoTurma;
 	private Date dataInicio;
 	private Date dataFim;
+	private InstrutorDTO instrutorDTO;
 
 	public Integer getTurmaId() {
 		return turmaId;
@@ -50,11 +51,18 @@ public class TurmaDTO {
 		this.dataFim = dataFim;
 	}
 
+	public InstrutorDTO getInstrutorDTO() {
+		return instrutorDTO;
+	}
+
+	public void setInstrutorDTO(InstrutorDTO instrutorDTO) {
+		this.instrutorDTO = instrutorDTO;
+	}
+
 	@Override
 	public String toString() {
 		return "TurmaDTO [turmaId=" + turmaId + ", horarioTurma=" + horarioTurma + ", duracaoTurma=" + duracaoTurma
 				+ ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + "]";
 	}
 
-	
 }
