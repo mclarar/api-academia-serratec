@@ -66,7 +66,7 @@ public class InstrutorService {
 		instrutorRepository.delete(instrutor);
 	}
 
-	private InstrutorDTO convertEntityToDto(Instrutor instrutor) {
+	public InstrutorDTO convertEntityToDto(Instrutor instrutor) {
 		InstrutorDTO instrutorDTO = new InstrutorDTO();
 		instrutorDTO.setDataNascimento(instrutor.getDataNascimento());
 		instrutorDTO.setInstrutorId(instrutor.getInstrutorId());
@@ -90,7 +90,7 @@ public class InstrutorService {
 		return instrutorDTO;
 	}
 	
-	private Instrutor convertDtoToEntity(InstrutorDTO instrutorDTO) {
+	public Instrutor convertDtoToEntity(InstrutorDTO instrutorDTO) {
 		Instrutor instrutor = new Instrutor();
 		instrutor.setDataNascimento(instrutorDTO.getDataNascimento());
 		instrutor.setInstrutorId(instrutorDTO.getInstrutorId());

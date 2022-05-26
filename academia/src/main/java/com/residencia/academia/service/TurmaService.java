@@ -16,55 +16,38 @@ public class TurmaService {
 	
 	@Autowired
 	TurmaRepository turmaRepository;
-	
+
 	@Autowired
 	InstrutorService instrutorService;
-	
-	public List<Turma> findAllTurma(){
+
+	public List<Turma> findAllTurma() {
 		return turmaRepository.findAll();
 	}
-	
-//	public Turma findTurmaById (Integer id) {
-//		return turmaRepository.findById(id).get();
-//	}
-	
+
 	public Turma findTurmaById(Integer id) {
-		return turmaRepository.findById(id).isPresent() ?
-			turmaRepository.findById(id).get() :
-				null;
+		return turmaRepository.findById(id).isPresent() ? turmaRepository.findById(id).get() : null;
 	}
-	
-	public Turma saveTurma (Turma turma) {
+
+	public Turma saveTurma(Turma turma) {
 		return turmaRepository.save(turma);
 	}
-	
+
 	public TurmaDTO saveTurmaDTO(TurmaDTO TurmaDTO) {
 		Turma turma = convertDtoToEntity(TurmaDTO);
-		
-		Turma turmaNovo =turmaRepository.save(turma);
-		
-		 return convertEntitytoDto (turmaNovo);
+
+		Turma turmaNovo = turmaRepository.save(turma);
+
+		return convertEntityToDto(turmaNovo);
 	}
-	
-	public Turma updateTurma (Turma turma) {
+
+	public Turma updateTurma(Turma turma) {
 		return turmaRepository.save(turma);
 	}
-	
-	public void deleteTurma (Integer id) {
+
+	public void deleteTurma(Integer id) {
 		turmaRepository.deleteById(id);
 	}
-	
-	/*
-	public Boolean deleteTurmaComConferencia(Integer id) {
-		if(turmaRepository.findById(id).isPresent()) {
-			turmaRepository.deleteById(id);
-			return true;
-		}else {
-			return false;
-		}
-	}
-	*/
-	
+
 	private TurmaDTO convertEntityToDto(Turma turma) {
 		TurmaDTO turmaDTO = new TurmaDTO();
 		turmaDTO.setDataFim(turma.getDataFim());
@@ -72,12 +55,13 @@ public class TurmaService {
 		turmaDTO.setDuracaoTurma(turma.getDuracaoTurma());
 		turmaDTO.setHorarioTurma(turma.getHorarioTurma());
 		turmaDTO.setTurmaId(turma.getTurmaId());
-		
-		Instrutor instrutor = instrutorService.findInstrutorById(turmaDTO.getInstrutorDTO().getInstrutorId());
-		
+
+		InstrutorDTO instrutor = instrutorService.findInstrutorDTOById(turma.getInstrutor().getInstrutorId());
+		turmaDTO.setInstrutorDTO(instrutor);
+
 		return turmaDTO;
 	}
-	
+
 	private Turma convertDtoToEntity(TurmaDTO turmaDTO) {
 		Turma turma = new Turma();
 		turma.setDataFim(turmaDTO.getDataFim());
@@ -85,22 +69,13 @@ public class TurmaService {
 		turma.setDuracaoTurma(turmaDTO.getDuracaoTurma());
 		turma.setHorarioTurma(turmaDTO.getHorarioTurma());
 		turma.setTurmaId(turmaDTO.getTurmaId());
-		
-		
-		
+		Instrutor instrutor = instrutorService.findInstrutorById(turmaDTO.getInstrutorDTO().getInstrutorId());
+		turma.setInstrutor(instrutor);
+
 		Turma turmaNovo = turmaRepository.save(turma);
-		
-		return  turmaNovo;
+
+		return turmaNovo;
 	}
 	
-	private TurmaDTO convertEntitytoDto (Turma turma) {
-		TurmaDTO turmaDTO = new TurmaDTO();
-		turmaDTO.setDataFim(turma.getDataFim());
-		turmaDTO.setDataInicio(turma.getDataInicio());
-		turmaDTO.setDuracaoTurma(turma.getDuracaoTurma());
-		turmaDTO.setHorarioTurma(turma.getHorarioTurma());
-		turmaDTO.setTurmaId(turma.getTurmaId());
-		
-		return turmaDTO;
-	}
+
 }
